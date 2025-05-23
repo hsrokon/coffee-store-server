@@ -72,7 +72,7 @@ async function run() {
         })
 
         //users api related
-        const userCollection = client.db('coffeeUsersDB').collection('coffeeUsers');
+        const userCollection = client.db('coffeeDB').collection('coffeeUsers');
         app.post('/users', async(req, res)=>{
             const user = req.body;
             console.log(user);
