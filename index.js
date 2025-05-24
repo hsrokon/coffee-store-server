@@ -85,6 +85,20 @@ async function run() {
             res.send(result)
         })
 
+        //PUT means replace the entire resource with given data (so null out fields if they are not provided in the request), while PATCH means replace only specified fields 
+        //Use PUT when you want to completely replace a resource, and use PATCH when you only need to make small updates
+        app.patch('/users', async(req, res)=> {
+            const email = req.body.email;
+            const filter = { email };
+            const updateDoc = {
+                $set : {
+                    lastSignInTime : req.body.lastSignInTime,
+                }
+            }
+            const result = await userCollection.updateOne(filter, updateDoc)
+            res.send(result);
+        })
+
         app.delete('/users/:id', async(req, res)=> {
             const id = req.params.id;
             const query = { _id : new ObjectId(id) }
